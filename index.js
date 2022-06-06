@@ -38,6 +38,7 @@ app.post("/barcodeShopping", async function (req, res) {
         if (err) console.error(err);
         let $ = cheerio.load(html);
         let fullName = $(".productTit").text().trim().slice(14);
+        let imgSrc = $("#detailImage")["0"].attribs.src;
         let name = fullName.trim().split(" ")[1];
         let url = `http://www.g2b.go.kr:8053/search/unifiedSearch.do?pageNumber=1&sortBy=&ascDesc=&displayType=0001&resultSearchYn=&searchTarget=total&searchWord=${name}`;
         request(encodeURI(url), async function (err, res2, html) {
@@ -53,6 +54,7 @@ app.post("/barcodeShopping", async function (req, res) {
             res.render("shopping.ejs", {
                 name: fullName,
                 isGreen: isGreen,
+                imgSrc: imgSrc,
             });
         });
     });
