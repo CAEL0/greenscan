@@ -22,60 +22,41 @@
             <div class="item_box current_item">
                 <p class="line"></p>
                 <p class="sub_title"><%= name %></p>
+                <% if (imgSrc == null) { %>
+                <% if (isGreen) { %>
+                <img class="item_img" onclick="" src=isGreen.jpg />
+                <% } else { %>
+                <img class="item_img" onclick="" src=isNotGreen.jpg />
+                <% }} else { %>
                 <img class="item_img" onclick="" src=<%= imgSrc %> />
+                <% } %>
                 <% if (isGreen) { %>
                 <p class="result green">녹색제품이 맞습니다.</p>
                 <% } else { %>
                 <p class="result non_green">녹색제품이 아닙니다.</p>
                 <% } %>
             </div>
-            <!-- <div class="recommend">
+            <div class="recommend">
                 <p class="line"></p>
                 <p class="sub_title">[Recommend]</p>
                 <div class="recommend_list">
-                    <div class="item_box" onclick="">
-                        <img
-                            class="item_img"
-                            src="https://contents.lotteon.com/itemimage/LM/88/01/06/23/32/23/6_/00/1/LM8801062332236_001_1.jpg"
-                        />
-                        <p class="item_title">이름</p>
-                        <div class="item_info">
-                            <p>&#8361;2000</p>
+                <% if (greenItems != undefined) { %>
+                    <%  for (greenItem of greenItems) { %>
+                        <div class="item_box">
+                            <p class="item_title">
+                                <a href="https://www.coupang.com/np/search?component=&q=<%= greenItem.모델명 %>&channel=user"><%= greenItem.모델명 %></a>
+                            </p>
                         </div>
-                    </div>
+                    <% } %>
+                <% } else { %>
                     <div class="item_box">
-                        <img
-                            class="item_img"
-                            onclick=""
-                            src="https://contents.lotteon.com/itemimage/_v131647/LM/40/01/68/63/01/55/5_/00/1/LM4001686301555_001_1.jpg"
-                        />
-                        <p class="item_title">이름</p>
-                        <div class="item_info">
-                            <p>&#8361;2000</p>
-                        </div>
+                        <p class="item_title">
+                            녹색제품이 없습니다.
+                        </p>
                     </div>
-                    <div class="item_box" onclick="">
-                        <img
-                            class="item_img"
-                            src="https://contents.lotteon.com/itemimage/LM/88/01/06/23/32/23/6_/00/1/LM8801062332236_001_1.jpg"
-                        />
-                        <p class="item_title">이름</p>
-                        <div class="item_info">
-                            <p>&#8361;2000</p>
-                        </div>
-                    </div>
-                    <div class="item_box" onclick="">
-                        <img
-                            class="item_img"
-                            src="https://contents.lotteon.com/itemimage/LM/88/01/06/23/32/23/6_/00/1/LM8801062332236_001_1.jpg"
-                        />
-                        <p class="item_title">이름</p>
-                        <div class="item_info">
-                            <p>&#8361;2000</p>
-                        </div>
-                    </div>
+                <% } %>
                 </div>
-            </div> -->
+            </div>
         </div>
     </body>
 </html>

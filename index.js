@@ -45,16 +45,19 @@ app.post("/barcodeShopping", async function (req, res) {
             if (err) console.error(err);
             let $ = cheerio.load(html);
             let arr = $(".labelNum").first().text().split("-");
-            let classNum = arr[0];
             let idNum = arr[1];
+            let classNum = arr[0];
             let db = await getDB("greenProduct.db");
-            let query = `select * from greenProduct where 식별번호 == ${idNum}`;
-            let rows = await db.all(query);
-            let isGreen = rows.length > 0;
+            let query1 = `select * from greenProduct where 식별번호 == ${idNum}`;
+            let query2 = `select * from greenProduct where 분류번호 == ${classNum}`;
+            let rows1 = await db.all(query1);
+            let rows2 = await db.all(query2);
+            let isGreen = rows1.length > 0;
             res.render("shopping.ejs", {
                 name: fullName,
                 isGreen: isGreen,
                 imgSrc: imgSrc,
+                greenItems: rows2,
             });
         });
     });
@@ -67,15 +70,19 @@ app.post("/searchShopping", async function (req, res) {
         if (err) console.error(err);
         let $ = cheerio.load(html);
         let arr = $(".labelNum").first().text().split("-");
-        let classNum = arr[0];
         let idNum = arr[1];
+        let classNum = arr[0];
         let db = await getDB("greenProduct.db");
-        let query = `select * from greenProduct where 식별번호 == ${idNum}`;
-        let rows = await db.all(query);
-        let isGreen = rows.length > 0;
+        let query1 = `select * from greenProduct where 식별번호 == ${idNum}`;
+        let query2 = `select * from greenProduct where 분류번호 == ${classNum}`;
+        let rows1 = await db.all(query1);
+        let rows2 = await db.all(query2);
+        let isGreen = rows1.length > 0;
         res.render("shopping.ejs", {
             name: name,
             isGreen: isGreen,
+            imgSrc: null,
+            greenItems: rows2,
         });
     });
 });
