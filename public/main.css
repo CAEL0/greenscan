@@ -172,18 +172,31 @@ nav a:after {
 }
 .sub_title {
     font-family: "Bebas Neue", "Do Hyeon";
-    font-size: 4vw;
+    font-size: 5vw;
     margin-top: 0;
     padding-top: 1vh;
+    text-align: center;
     vertical-align: bottom;
 }
 .item_title {
     font-family: "Gothic A1";
     font-size: 3.5vw;
+    width: 100%;
     margin: 0;
     padding-top: 1vh;
     vertical-align: bottom;
     font-weight: bolder;
+}
+.item_title a {
+    display: inline-block;
+    width: 100%;
+    font-family: "Do Hyeon";
+    font-size: 3vw;
+    font-weight: lighter;
+    text-align: center;
+}
+.item_title a:hover {
+    text-decoration: underline;
 }
 .result {
     font-family: "Do Hyeon";
@@ -228,6 +241,12 @@ nav a:after {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+}
+.leaf_img {
+    width: 5vw;
+    height: 5vw;
+    object-fit: cover;
+    margin-top: 5vw;
 }
 .recommend_list .item_img {
     margin: 2vh 0;

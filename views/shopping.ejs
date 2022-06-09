@@ -22,13 +22,13 @@
             <div class="item_box current_item">
                 <p class="line"></p>
                 <p class="sub_title"><%= name %></p>
-                <% if (imgSrc == null) { %>
+                <% if (imgSrc == null || imgSrc == "/images/common/no_img.gif") { %>
                 <% if (isGreen) { %>
-                <img class="item_img" onclick="" src=isGreen.jpg />
+                <img class="item_img" onclick="location.href='https://www.coupang.com/np/search?component=&q=<%= name %>&channel=user'" src=isGreen.jpg />
                 <% } else { %>
-                <img class="item_img" onclick="" src=isNotGreen.jpg />
+                <img class="item_img" onclick="location.href='https://www.coupang.com/np/search?component=&q=<%= name %>&channel=user'" src=isNotGreen.jpg />
                 <% }} else { %>
-                <img class="item_img" onclick="" src=<%= imgSrc %> />
+                <img class="item_img" onclick="location.href='https://www.coupang.com/np/search?component=&q=<%= name %>&channel=user'" src=<%= imgSrc %> />
                 <% } %>
                 <% if (isGreen) { %>
                 <p class="result green">녹색제품이 맞습니다.</p>
@@ -40,20 +40,21 @@
                 <p class="line"></p>
                 <p class="sub_title">[Recommend]</p>
                 <div class="recommend_list">
-                <% if (greenItems != undefined) { %>
+                <% if (greenItems.length > 0) { %>
+                    <% let count = 0; %>
                     <%  for (greenItem of greenItems) { %>
+                        <% count++; %>
                         <div class="item_box">
+                            <img src="leaf<%= count % 5 %>.png" alt="leaf" class="leaf_img">
                             <p class="item_title">
                                 <a href="https://www.coupang.com/np/search?component=&q=<%= greenItem.모델명 %>&channel=user"><%= greenItem.모델명 %></a>
                             </p>
                         </div>
                     <% } %>
                 <% } else { %>
-                    <div class="item_box">
-                        <p class="item_title">
-                            녹색제품이 없습니다.
-                        </p>
-                    </div>
+                    <p class="item_title">
+                        추천 녹색제품이 없습니다.
+                    </p>
                 <% } %>
                 </div>
             </div>

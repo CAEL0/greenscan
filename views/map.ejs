@@ -53,6 +53,7 @@
                         });
                         let marker = new kakao.maps.Marker({
                             position: locPosition,
+                            clickable: true,
                         });
                         coords.push([lat, lng]);
                         kakao.maps.event.addListener(

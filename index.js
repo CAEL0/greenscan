@@ -38,8 +38,13 @@ app.post("/barcodeShopping", async function (req, res) {
         if (err) console.error(err);
         let $ = cheerio.load(html);
         let fullName = $(".productTit").text().trim().slice(14);
-        let imgSrc = $("#detailImage")["0"].attribs.src;
-        let name = fullName.trim().split(" ")[1];
+        let imgSrc;
+        try {
+            imgSrc = $("#detailImage")["0"].attribs.src;
+        } catch {
+            imgSrc = "";
+        }
+        let name = fullName.trim();
         let url = `http://www.g2b.go.kr:8053/search/unifiedSearch.do?pageNumber=1&sortBy=&ascDesc=&displayType=0001&resultSearchYn=&searchTarget=total&searchWord=${name}`;
         request(encodeURI(url), async function (err, res2, html) {
             if (err) console.error(err);
@@ -48,13 +53,13 @@ app.post("/barcodeShopping", async function (req, res) {
             let idNum = arr[1];
             let classNum = arr[0];
             let db = await getDB("./public/greenProduct.db");
-            let query1 = `select * from greenProduct where 식별번호 == ${idNum}`;
-            let query2 = `select * from greenProduct where 분류번호 == ${classNum}`;
+            let query1 = `select * from greenProduct where 식별번호 = ${idNum} or 모델명 = '${name}'`;
+            let query2 = `select * from greenProduct where 분류번호 = ${classNum}`;
             let rows1 = await db.all(query1);
             let rows2 = await db.all(query2);
             let isGreen = rows1.length > 0;
             res.render("shopping.ejs", {
-                name: fullName,
+                name: name,
                 isGreen: isGreen,
                 imgSrc: imgSrc,
                 greenItems: rows2,
@@ -73,8 +78,8 @@ app.post("/searchShopping", async function (req, res) {
         let idNum = arr[1];
         let classNum = arr[0];
         let db = await getDB("./public/greenProduct.db");
-        let query1 = `select * from greenProduct where 식별번호 == ${idNum}`;
-        let query2 = `select * from greenProduct where 분류번호 == ${classNum}`;
+        let query1 = `select * from greenProduct where 식별번호 = ${idNum} or 모델명 = '${name}'`;
+        let query2 = `select * from greenProduct where 분류번호 = ${classNum}`;
         let rows1 = await db.all(query1);
         let rows2 = await db.all(query2);
         let isGreen = rows1.length > 0;
