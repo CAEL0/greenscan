@@ -47,7 +47,7 @@ app.post("/barcodeShopping", async function (req, res) {
             let arr = $(".labelNum").first().text().split("-");
             let idNum = arr[1];
             let classNum = arr[0];
-            let db = await getDB("greenProduct.db");
+            let db = await getDB("./public/greenProduct.db");
             let query1 = `select * from greenProduct where 식별번호 == ${idNum}`;
             let query2 = `select * from greenProduct where 분류번호 == ${classNum}`;
             let rows1 = await db.all(query1);
@@ -72,7 +72,7 @@ app.post("/searchShopping", async function (req, res) {
         let arr = $(".labelNum").first().text().split("-");
         let idNum = arr[1];
         let classNum = arr[0];
-        let db = await getDB("greenProduct.db");
+        let db = await getDB("./public/greenProduct.db");
         let query1 = `select * from greenProduct where 식별번호 == ${idNum}`;
         let query2 = `select * from greenProduct where 분류번호 == ${classNum}`;
         let rows1 = await db.all(query1);
